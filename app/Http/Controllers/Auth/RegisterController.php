@@ -63,7 +63,7 @@ class RegisterController extends Controller
             'secret_code' => [
                 'required_if:role,admin',
                 function($attribute, $value, $fail) {
-                    if ($value !== 'RAHASIA2023' && request()->role === 'admin') {
+                    if ($value !== 'RAHASIA2024' && request()->role === 'admin') {
                         $fail('Kode rahasia untuk admin tidak valid.');
                     }
                 },

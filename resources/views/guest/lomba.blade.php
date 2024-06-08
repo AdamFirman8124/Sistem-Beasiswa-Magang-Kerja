@@ -32,7 +32,7 @@
 
                                 {{-- Action --}}
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('guest.detail_lomba', ['id' => $lomba->id]) }}"class="baca-selengkapnya fw-bold">
+                                    <a href="{{ route('user.detail_lomba', ['id' => $lomba->id]) }}"class="baca-selengkapnya fw-bold">
                                         Baca selengkapnya
                                     </a>
                                 </div>

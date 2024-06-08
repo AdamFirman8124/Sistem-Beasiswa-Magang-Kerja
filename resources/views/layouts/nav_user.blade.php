@@ -15,19 +15,7 @@
             {{-- Content navbar --}}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link fs-6" aria-current="page" href="/">Terbaru</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-6" href="{{ route('guest.beasiswa') }}">Beasiswa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-6" href="{{ route('guest.lomba') }}">Lomba</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-6" href="{{ route('guest.loker') }}">Lowongan Kerja</a>
-                    </li>
-
+                    
                 </ul>
                 <a class="icon-link icon-link-hover link-offset-2 link-underline link-underline-opacity-0 text-dark fw-bold fs-6"
                     href="/login" style="margin-right: 10px">

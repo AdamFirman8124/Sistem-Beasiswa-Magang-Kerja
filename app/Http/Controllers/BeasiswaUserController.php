@@ -92,7 +92,7 @@ class BeasiswaUserController extends Controller
     
         $beasiswaUser->save();
     
-        return response()->json(['success' => 'Beasiswa User Added Successfully.'], 200);
+        return response()->json(['serial' => $beasiswaUser->serial], 200);
     }
     
 
@@ -100,7 +100,10 @@ class BeasiswaUserController extends Controller
     {
         $pageTitle = 'Beasiswa Detail';
         $beasiswa = Beasiswa::find($id);
-        return view('user.beasiswa.show', compact('pageTitle', 'beasiswa'));
+        $isRegistered = BeasiswaUser::where('nama', auth()->user()->name)
+                        ->where('beasiswa_id', $beasiswa->id)
+                        ->exists();
+        return view('user.beasiswa.show', compact('pageTitle', 'beasiswa', 'isRegistered'));
     }
 
     public function edit(string $id)

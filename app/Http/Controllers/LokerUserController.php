@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class LokerUserController extends Controller
 {
@@ -53,6 +54,7 @@ class LokerUserController extends Controller
         ], $messages);
     
         if ($validator->fails()) {
+            Log::error('Validasi gagal saat menambahkan Magang User: ' . $validator->errors()->first());
             return response()->json(['error' => $validator->errors()->first()], 422);
         }
     
@@ -89,6 +91,7 @@ class LokerUserController extends Controller
         ], $messages);
     
         if ($validator->fails()) {
+            Log::error('Validasi gagal saat menyimpan Loker: ' . $validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
     
@@ -152,10 +155,23 @@ class LokerUserController extends Controller
         ], $messages);
     
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            Log::error('Validasi gagal saat memperbarui Loker: ' . $validator->errors()->first());
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
         }
     
         $loker = Loker::find($id);
+        if (!$loker) {
+            Log::error('Loker dengan ID: ' . $id . ' tidak ditemukan.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Loker tidak ditemukan.'
+            ], 404);
+        }
+
         $loker->name = $request->nama;
         $loker->requirement = $request->persyaratan;
         $loker->description = $request->deskripsi;
@@ -165,13 +181,23 @@ class LokerUserController extends Controller
             $imageName = time() . '.' . $file->extension();
             $file->move(public_path('poster_loker'), $imageName);
             $loker->image = 'poster_loker/' . $imageName;
+            Log::info('File foto berhasil diunggah dengan nama: ' . $imageName);
         }
     
         $loker->save();
+        Log::info('Loker dengan ID: ' . $id . ' berhasil diperbarui.');
     
         Alert::success('Changed Successfully', 'Lowongan Kerja Data Changed Successfully.');
     
-        return redirect()->route('user.loker');
+        $response = response()->json([
+            'success' => true,
+            'message' => 'Data berhasil disimpan',
+            'serial' => $loker->serial // Memastikan nilai serial yang dikembalikan adalah ID dari Loker yang diperbarui
+        ]);
+
+        Log::info('Response: ' . $response->getContent()); // Menambahkan log untuk melihat struktur data yang dikembalikan
+
+        return $response;
     }
     
     /**

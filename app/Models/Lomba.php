@@ -10,4 +10,6 @@ class Lomba extends Model
 {
     use SoftDeletes;
     use HasFactory;
+
+    protected $fillable = ['name', 'requirement', 'description', 'image', 'link'];
 }

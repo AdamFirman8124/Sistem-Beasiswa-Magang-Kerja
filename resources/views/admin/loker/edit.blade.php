@@ -37,6 +37,13 @@
                             <label for="foto" class="form-label fw-bold">Foto</label>
                             <input type="file" class="form-control" name="foto" id="foto">
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="link_pendaftaran" class="form-label fw-bold">Link Pendaftaran</label>
+                            <input type="url" class="form-control @error('link_pendaftaran') is-invalid @enderror" name="link_pendaftaran" id="link_pendaftaran" value="{{ old('link_pendaftaran', $loker->link) }}">
+                            @error('link_pendaftaran')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
+                        </div>
                     </div>
                     <hr>
                     <div class="row">

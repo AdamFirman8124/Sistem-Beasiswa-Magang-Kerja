@@ -11,3 +11,4 @@ class Beasiswa extends Model
     use SoftDeletes;
     use HasFactory;
 }
+

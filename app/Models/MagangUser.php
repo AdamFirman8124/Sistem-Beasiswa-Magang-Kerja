@@ -13,6 +13,7 @@ class MagangUser extends Model
         'magang_id',
         'serial',
         'bukti',
+        'link',
     ];
 
     public function loker()

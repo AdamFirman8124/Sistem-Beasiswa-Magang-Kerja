@@ -26,11 +26,15 @@
                         <span class="fw-bold">Persyaratan</span>
                         <textarea class="form-control text-area-detail mb-3" id="exampleFormControlTextarea1" rows="6" readonly>{{ $beasiswa->requirement }}</textarea>
                         <hr class="line-hr">
+                        @if ($beasiswa->link)
+                            <span class="fw-bold">Link Pendaftaran</span>
+                            <a href="{{ $beasiswa->link }}" class="d-block mb-3" target="_blank">{{ $beasiswa->link }}</a>
+                        @endif
+                        <hr class="line-hr">
                     </div>
                 </div>
             </div>
         </div>
-        <hr class="line-hr">
     </div>
 @endsection
 </script>

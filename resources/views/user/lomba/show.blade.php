@@ -23,9 +23,13 @@
                         <span class="fw-bold">Deskripsi</span>
                         <textarea class="form-control text-area-detail mb-3" id="exampleFormControlTextarea1" rows="6" readonly>{{ $lomba->description }}</textarea>
                         <hr class="line-hr">
-                        <span class="fw-bold">Persyaratan</span>
+                        <span class="`fw-bold">Persyaratan</span>
                         <textarea class="form-control text-area-detail mb-3" id="exampleFormControlTextarea1" rows="6" readonly>{{ $lomba->requirement }}</textarea>
-                        <hr class="line-hr">                        
+                        <hr class="line-hr">   
+                        @if ($lomba->link)
+                            <span class="fw-bold">Link Pendaftaran</span>
+                            <a href="{{ $lomba->link }}" class="d-block mb-3" target="_blank">{{ $lomba->link }}</a>
+                        @endif
                     </div>
                 </div>
             </div>

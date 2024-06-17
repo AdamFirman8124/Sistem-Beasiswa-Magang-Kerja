@@ -47,6 +47,7 @@ class LokerAdminController extends Controller
             'persyaratan' => 'required',
             'deskripsi' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'link_pendaftaran' => 'required|url',
         ], $messages);
     
         if ($validator->fails()) {
@@ -57,6 +58,7 @@ class LokerAdminController extends Controller
         $loker->name = $request->nama;
         $loker->requirement = $request->persyaratan;
         $loker->description = $request->deskripsi;
+        $loker->link = $request->link_pendaftaran;
     
         $file = $request->file('foto');
         if ($file != null) {
@@ -76,22 +78,15 @@ class LokerAdminController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show(string $id)
-    // {
-    //     $pageTitle = 'Loker Detail';
-
-    //     $loker = Loker::find($id);
-
-    //     return view('admin.loker.show', compact('pageTitle', 'loker'));
-    // }
     public function show(string $id)
     {
         $pageTitle = 'Loker Detail';
     
-        // Ambil informasi lomba berdasarkan ID
         $loker = Loker::find($id);
+        if (!$loker) {
+            abort(404);
+        }
     
-        // Ambil data pengguna berdasarkan lomba_id
         $lokerUsers = MagangUser::where('magang_id', $id)
                                 ->select('nama', 'durasi','serial','bukti')
                                 ->get();
@@ -107,6 +102,9 @@ class LokerAdminController extends Controller
         $pageTitle = 'Loker Edit';
 
         $loker = Loker::find($id);
+        if (!$loker) {
+            abort(404);
+        }
 
         return view('admin.loker.edit', compact('pageTitle', 'loker'));
     }
@@ -124,6 +122,7 @@ class LokerAdminController extends Controller
             'nama' => 'required',
             'persyaratan' => 'required',
             'deskripsi' => 'required',
+            'link_pendaftaran' => 'required|url',
         ], $messages);
     
         if ($validator->fails()) {
@@ -131,9 +130,13 @@ class LokerAdminController extends Controller
         }
     
         $loker = Loker::find($id);
+        if (!$loker) {
+            abort(404);
+        }
         $loker->name = $request->nama;
         $loker->requirement = $request->persyaratan;
         $loker->description = $request->deskripsi;
+        $loker->link = $request->link_pendaftaran;
     
         $file = $request->file('foto');
         if ($file != null) {
@@ -155,6 +158,9 @@ class LokerAdminController extends Controller
     public function destroy(string $id)
     {
         $loker = Loker::find($id);
+        if (!$loker) {
+            abort(404);
+        }
 
         if ($loker->image) {
             Storage::delete('public/files/' . $loker->image);

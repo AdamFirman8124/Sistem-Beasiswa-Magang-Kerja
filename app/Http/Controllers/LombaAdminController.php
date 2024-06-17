@@ -46,7 +46,8 @@ class LombaAdminController extends Controller
             'nama' => 'required',
             'persyaratan' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Memvalidasi foto
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'link_pendaftaran' => 'required|url',
         ], $messages);
     
         if ($validator->fails()) {
@@ -57,6 +58,7 @@ class LombaAdminController extends Controller
         $lomba->name = $request->nama;
         $lomba->requirement = $request->persyaratan;
         $lomba->description = $request->deskripsi;
+        $lomba->link = $request->link_pendaftaran;
     
         $file = $request->file('foto');
         if ($file != null) {
@@ -116,6 +118,7 @@ class LombaAdminController extends Controller
             'nama' => 'required',
             'persyaratan' => 'required',
             'deskripsi' => 'required',
+            'link_pendaftaran' => 'required|url',
         ], $messages);
     
         if ($validator->fails()) {
@@ -126,6 +129,7 @@ class LombaAdminController extends Controller
         $lomba->name = $request->nama;
         $lomba->requirement = $request->persyaratan;
         $lomba->description = $request->deskripsi;
+        $lomba->link = $request->link_pendaftaran;
     
         $file = $request->file('foto');
         if ($file != null) {

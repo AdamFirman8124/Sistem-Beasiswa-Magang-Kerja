@@ -12,6 +12,7 @@ class BeasiswaUser extends Model
         'beasiswa_id',
         'serial',
         'bukti',
+        'link',
     ];
 
     public function beasiswa()

@@ -42,6 +42,14 @@
                                 <span class="text-danger">{{ $errors->first('foto') }}</span>
                             @endif
                         </div>
+                        <div class="col-md-12">
+                            <label for="link_pendaftaran" class="form-label fw-bold">Link Pendaftaran</label>
+                            <input type="url" class="form-control @error('link_pendaftaran') is-invalid @enderror" name="link_pendaftaran" id="link_pendaftaran"
+                                placeholder="Masukkan Link Pendaftaran" value="{{ old('link_pendaftaran') }}">
+                            @error('link_pendaftaran')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
+                        </div>
                     </div>
                     <hr>
                     <div class="row">

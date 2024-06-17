@@ -13,6 +13,7 @@ class LombaUser extends Model
         'serial',
         'bukti',
         'lomba_id',
+        'link',
     ];
 
     public function lomba()

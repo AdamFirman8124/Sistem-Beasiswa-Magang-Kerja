@@ -35,6 +35,7 @@ class BeasiswaAdminController extends Controller
             'persyaratan' => 'required',
             'deskripsi' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'link_pendaftaran' => 'required|url',
         ], $messages);
     
         if ($validator->fails()) {
@@ -45,6 +46,7 @@ class BeasiswaAdminController extends Controller
         $beasiswa->name = $request->nama;
         $beasiswa->requirement = $request->persyaratan;
         $beasiswa->description = $request->deskripsi;
+        $beasiswa->link = $request->link_pendaftaran;
     
         if ($request->hasFile('foto')) {
             $imageName = time() . '.' . $request->foto->extension();
@@ -60,13 +62,8 @@ class BeasiswaAdminController extends Controller
     
     public function show(string $id)
     {
-
         $pageTitle = 'Beasiswa Detail';
-
-
         $beasiswa = Beasiswa::find($id);
-
-
         $beasiswaUsers = BeasiswaUser::where('beasiswa_id', $id)
                                      ->select('nama','serial','bukti')
                                      ->get();
@@ -91,7 +88,7 @@ class BeasiswaAdminController extends Controller
             'nama' => 'required',
             'persyaratan' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'link_pendaftaran' => 'required|url',
         ], $messages);
     
         if ($validator->fails()) {
@@ -102,7 +99,8 @@ class BeasiswaAdminController extends Controller
         $beasiswa->name = $request->nama;
         $beasiswa->requirement = $request->persyaratan;
         $beasiswa->description = $request->deskripsi;
-    
+        $beasiswa->link = $request->link_pendaftaran;
+        
         $file = $request->file('foto');
         if ($file != null) {
             $imageName = time() . '.' . $file->extension();
